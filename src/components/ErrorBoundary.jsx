@@ -11,7 +11,7 @@ class ErrorBoundary extends React.Component {
     }
     componentDidCatch(error, errorInfo) {
         error.__ErrorBoundary = true;
-        window.__COMPENENTERROR__ = error;
+        window.__COMPONENT_ERROR__ = error;
         console.error("ErrorBoundary caught an error", error, errorInfo);
     }   
     render() {
@@ -29,10 +29,12 @@ class ErrorBoundary extends React.Component {
             </div>
             <div className="flex flex-col gap-1 text-center">
               <h1 className="text-2xl font-medium text-neutral-800">Something went wrong</h1>
-              <p className="text-neutral-600 text-base w w-8/12 mx-auto">We encountered an unexpected error while processing your request.</p>
+              <p className="text-neutral-600 text-base w-8/12 mx-auto">We encountered an unexpected error while processing your request.</p>
             </div>
             <div className="flex justify-center items-center mt-6">
               <button
+                type="button"
+                aria-label="Go back to home"
                 onClick={() => {
                   window.location.href = "/";
                 }}

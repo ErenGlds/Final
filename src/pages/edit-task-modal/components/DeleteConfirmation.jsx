@@ -3,12 +3,22 @@ import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 
 const DeleteConfirmation = ({ isOpen, onClose, onConfirm, taskTitle, isDeleting }) => {
+  React.useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose?.();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
     <div 
       className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[1100] flex items-center justify-center p-4"
-      onClick={onClose}
+      onClick={(e) => { if (e.target === e.currentTarget) onClose?.(); }}
+      role="presentation"
     >
       <div 
         className="w-full max-w-md bg-card rounded-2xl shadow-xl"

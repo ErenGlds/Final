@@ -147,10 +147,10 @@ const Select = React.forwardRef(({
 
                         <ChevronDown className={cn("h-4 w-4 transition-transform", isOpen && "rotate-180")} />
                     </div>
-                </button>{}
+                </button>
                 <select
                     name={name}
-                    value={value || ''}
+                    value={multiple ? (value || []) : (value || '')}
                     onChange={() => { }}
                     className="sr-only"
                     tabIndex={-1}
@@ -163,7 +163,7 @@ const Select = React.forwardRef(({
                             {option?.label}
                         </option>
                     ))}
-                </select>{}
+                </select>
                 {isOpen && (
                     <div className="absolute z-50 w-full mt-1 bg-white text-black border border-border rounded-md shadow-md">
                         {searchable && (
