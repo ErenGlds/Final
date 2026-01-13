@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Icon from './AppIcon';
-import Button from './ui/Button';
-import Input from './ui/Input';
-import Select from './ui/Select';
+import Icon from '../components/AppIcon';
+import Button from '../components/ui/Button';
+import Input from '../components/ui/Input';
+import Select from '../components/ui/Select';
 
 const TaskModal = ({ isOpen, onClose, onSubmit, taskData, mode = 'add' }) => {
   const [formData, setFormData] = useState({

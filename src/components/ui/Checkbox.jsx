@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { Check, Minus } from "lucide-react";
 import { cn } from "../../utils/cn";
 
@@ -15,21 +15,6 @@ const Checkbox = React.forwardRef(({
     size = "default",
     ...props
 }, ref) => {
-    const internalRef = useRef(null);
-    useEffect(() => {
-        if (!ref) return;
-        if (typeof ref === "function") {
-            ref(internalRef.current);
-        } else {
-            try { ref.current = internalRef.current; } catch {}
-        }
-    }, [ref]);
-    useEffect(() => {
-        if (internalRef.current) {
-            internalRef.current.indeterminate = Boolean(indeterminate);
-        }
-    }, [indeterminate]);
-
     const checkboxId = id || `checkbox-${Math.random()?.toString(36)?.substr(2, 9)}`;
 
     const sizeClasses = {
@@ -43,19 +28,19 @@ const Checkbox = React.forwardRef(({
             <div className="relative flex items-center">
                 <input
                     type="checkbox"
-                    ref={internalRef}
+                    ref={ref}
                     id={checkboxId}
                     checked={checked}
                     disabled={disabled}
                     required={required}
-                    className="sr-only peer"
+                    className="sr-only"
                     {...props}
                 />
 
                 <label
                     htmlFor={checkboxId}
                     className={cn(
-                        "shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground cursor-pointer transition-colors",
+                        "peer shrink-0 rounded-sm border border-primary ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground cursor-pointer transition-colors",
                         sizeClasses?.[size],
                         checked && "bg-primary text-primary-foreground border-primary",
                         indeterminate && "bg-primary text-primary-foreground border-primary",

@@ -43,7 +43,6 @@ const Button = React.forwardRef(({
     children,
     loading = false,
     iconName = null,
-    icon = null,
     iconPosition = 'left',
     iconSize = null,
     fullWidth = false,
@@ -71,27 +70,16 @@ const Button = React.forwardRef(({
     );
 
     const renderIcon = () => {
-        const iconSpacingClass = cn(
-            children && iconPosition === 'left' && "mr-2",
-            children && iconPosition === 'right' && "ml-2"
-        );
-
-        if (icon) {
-            if (React.isValidElement(icon)) {
-                return React.cloneElement(icon, {
-                    className: cn(icon.props.className, iconSpacingClass)
-                });
-            }
-            return <span className={iconSpacingClass}>{icon}</span>;
-        }
-
         if (!iconName) return null;
         try {
             return (
                 <Icon
                     name={iconName}
                     size={calculatedIconSize}
-                    className={iconSpacingClass}
+                    className={cn(
+                        children && iconPosition === 'left' && "mr-2",
+                        children && iconPosition === 'right' && "ml-2"
+                    )}
                 />
             );
         } catch {
@@ -102,8 +90,7 @@ const Button = React.forwardRef(({
     const renderFallbackButton = () => (
         <button
             className={cn(
-                buttonVariants({ variant, size }),
-                className,
+                buttonVariants({ variant, size, className }),
                 fullWidth && "w-full"
             )}
             ref={ref}
@@ -111,9 +98,9 @@ const Button = React.forwardRef(({
             {...props}
         >
             {loading && <LoadingSpinner />}
-            { (icon || iconName) && iconPosition === 'left' && renderIcon() }
+            {iconName && iconPosition === 'left' && renderIcon()}
             {children}
-            { (icon || iconName) && iconPosition === 'right' && renderIcon() }
+            {iconName && iconPosition === 'right' && renderIcon()}
         </button>
     );
     if (asChild) {
@@ -130,16 +117,15 @@ const Button = React.forwardRef(({
             const content = (
                 <>
                     {loading && <LoadingSpinner />}
-                    { (icon || iconName) && iconPosition === 'left' && renderIcon() }
+                    {iconName && iconPosition === 'left' && renderIcon()}
                     {child?.props?.children}
-                    { (icon || iconName) && iconPosition === 'right' && renderIcon() }
+                    {iconName && iconPosition === 'right' && renderIcon()}
                 </>
             );
 
             const clonedChild = React.cloneElement(child, {
                 className: cn(
-                    buttonVariants({ variant, size }),
-                    className,
+                    buttonVariants({ variant, size, className }),
                     fullWidth && "w-full",
                     child?.props?.className
                 ),
@@ -156,8 +142,7 @@ const Button = React.forwardRef(({
     return (
         <Comp
             className={cn(
-                buttonVariants({ variant, size }),
-                className,
+                buttonVariants({ variant, size, className }),
                 fullWidth && "w-full"
             )}
             ref={ref}
@@ -165,9 +150,9 @@ const Button = React.forwardRef(({
             {...props}
         >
             {loading && <LoadingSpinner />}
-            { (icon || iconName) && iconPosition === 'left' && renderIcon() }
+            {iconName && iconPosition === 'left' && renderIcon()}
             {children}
-            { (icon || iconName) && iconPosition === 'right' && renderIcon() }
+            {iconName && iconPosition === 'right' && renderIcon()}
         </Comp>
     );
 });

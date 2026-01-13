@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Icon from './AppIcon';
-import Button from './ui/Button';
-import Input from './ui/Input';
+import Icon from '../components/AppIcon';
+import Button from '../components/ui/Button';
+import Input from '../components/ui/Input';
 
 const AuthContainer = () => {
   const [mode, setMode] = useState('login');
@@ -178,13 +178,9 @@ const AuthContainer = () => {
 
         <div className="auth-toggle">
           {mode === 'login' ? "Don't have an account? " : 'Already have an account? '}
-          <button
-            type="button"
-            className="auth-toggle-link"
-            onClick={toggleMode}
-          >
+          <span className="auth-toggle-link" onClick={toggleMode}>
             {mode === 'login' ? 'Sign up' : 'Sign in'}
-          </button>
+          </span>
         </div>
       </div>
     </div>

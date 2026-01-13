@@ -23,7 +23,7 @@ const AddTaskModal = () => {
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = 'unset';
     };
   }, [isSubmitting]);
 
